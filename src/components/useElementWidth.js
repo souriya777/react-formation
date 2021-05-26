@@ -1,17 +1,27 @@
-import {useState} from 'react'
+import { useEffect, useState } from "react";
 
-const useElementWidth = (elementId) => {
-    const [width, setWidth] = useState(0)
-    const el = document.getElementById(elementId)
-    if (el)
-        setWidth(el.getBoundingClientRect().width)
-    window.addEventListener("resize", function () {
-        console.log("useElementWidth")
-        if (el)
-            setWidth(el.getBoundingClientRect().width)
-    })
+function useElementWidth(elementId) {
+  // STATE
+  const [width, setWidth] = useState(0);
 
-    return width;
+  useEffect(() => {
+    const el = document.getElementById(elementId);
+
+    function handleResize() {
+      console.log("useElementWidth");
+      setWidth(el.getBoundingClientRect().width);
+    }
+
+    // EVENT LISTENER
+    window.addEventListener("resize", handleResize);
+    handleResize();
+
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, [elementId]);
+
+  return width;
 }
 
-export default useElementWidth
+export default useElementWidth;
