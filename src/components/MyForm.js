@@ -1,12 +1,13 @@
 import { useState } from "react"
 
-function MyForm() {
+function MyForm(props) {
     const [name, setName] = useState("") 
     const [bio, setBio] = useState("") 
     const [tech, setTech] = useState("") 
 
     function handleSubmit(e) {
         e.preventDefault();
+        props.onSubmit()
         console.log("name : " + name);
         console.log("bio : " + bio);
         console.log("tech : " + tech);

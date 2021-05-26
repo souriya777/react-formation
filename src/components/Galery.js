@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 
-function Galery() {
-  const [myDate, setDate] = useState("");
+function Galery(props) {
+  //const [myDate, setDate] = useState("");
   const [imgList, setImgList] = useState([]);
 
   // COMPONENT DID MOUNT
@@ -12,21 +12,20 @@ function Galery() {
       .then((response) => response.json())
       .then((json) => {
         console.log(json);
-        setImgList(json.slice(0, 9))
+        setImgList(json)
       });
   }, []);
 
-  useEffect(() => {
-    if(imgList.length < 1) {
-      return;
+  return <div>
+    { 
+      imgList.slice((props.pageNum - 1)*10, props.pageNum*10).map(
+        (img) => {
+          return <img key={img.id} id={img.id} src={img.thumbnailUrl} width="50px" height="50px" />
+        }
+
+      ) 
     }
-    
-    console.log(imgList);
-  }, [imgList])
-
-  setInterval(() => setDate(new Date().toString()), 1000);
-
-  return <div>Hello!</div>;
+  </div>;
 };
 
 export default Galery;
