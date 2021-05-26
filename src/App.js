@@ -1,6 +1,7 @@
 
 import './App.css';
 import Horloge from './Horloge'
+import Galery from './components/Galery'
 import MyForm from './components/MyForm'
 
 function App() {
@@ -8,6 +9,7 @@ function App() {
     <div className="App">
       <Horloge />
       <MyForm />
+      <Galery />
     </div>
   );
 }
